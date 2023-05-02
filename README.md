@@ -56,9 +56,9 @@ ____
 ### Пример заполнения .env файла:
 
 SECRET_KEY=your_secret_key 
-DEBUG=True
-DB_NAME=postgres  
-DB_PASSWORD=postgres  
-DB_USER=postgres  
-DB_HOST=localhost
+DEBUG=True 
+DB_NAME=postgres
+DB_PASSWORD=postgres
+DB_USER=postgres
+DB_HOST=localhost 
 DB_PORT=5432
