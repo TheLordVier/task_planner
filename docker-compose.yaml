@@ -20,8 +20,8 @@ services:
       retries: 10
 
   api:
-    build: ..
-    env_file: ../.env
+    build: .
+    env_file: .env
     environment:
       DB_HOST: db
     depends_on:
