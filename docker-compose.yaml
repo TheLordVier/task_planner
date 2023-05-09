@@ -7,9 +7,9 @@ services:
     volumes:
       - task_planner_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     restart: always
     ports:
       - '5432:5432'
@@ -21,9 +21,12 @@ services:
 
   api:
     build: .
-    env_file: .env
+#    env_file: .env
     environment:
-      DB_HOST: db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - DB_HOST=db
     depends_on:
       db:
         condition: service_healthy
