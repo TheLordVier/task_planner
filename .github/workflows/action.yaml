@@ -1,56 +1,57 @@
-name: CI
+name: build and deploy
 
 on: [push]
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: docker build
-        uses: docker/setup-buildx-action@v2
+        run: docker build -t thelordvier/task_planner:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: docker push
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-#          file: Dockerfile.prod
-          tags: ${{ secrets.DOCKERHUB_USER }}/task_planner:latest
+        run: docker push thelordvier/task_planner:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
   deploy:
-    needs: build
+    needs: build_and_push
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${ secrets.SECRET_KEY }
+      POSTGRES_PASSWORD: ${ secrets.POSTGRES_PASSWORD }
+      POSTGRES_USER: ${ secrets.POSTGRES_USER }
+      POSTGRES_DB: ${ secrets.POSTGRES_DB }
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: render config
+      - name: render configs
         run: |
-          mkdir deploy
-          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-          cat .env | envsubst > deploy/.env
-      - name: copy files
+          mkdir deploy_ci
+          cat deploy/docker-compose-ci.yaml | envsubst > deploy_ci/docker-compose.yaml
+          cat deploy/.env | envsubst > deploy_ci/.env
+      - name: copy files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          source: 'deploy/*'
-          target: 'task_planner'
+          source: "deploy_ci/docker-compose.yaml,deploy_ci/.env"
+          target: "todolist"
           strip_components: 1
-      - name: run compose
+      - name: deploy app
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd task_planner
-            docker-compose pull
+            cd todolist
+#            docker-compose down
             docker-compose up -d
       - name: remove old images
         if: always()
