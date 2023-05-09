@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: postgres
     restart: always
     healthcheck:
-      test: pg_isready -U ${DB_USER} -d ${DB_NAME}
+      test: pg_isready -U postgres -d postgres
       timeout: 3s
       interval: 5s
       retries: 10
