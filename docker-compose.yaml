@@ -21,7 +21,7 @@ services:
 
   api:
     build: .
-#    env_file: .env
+    env_file: .env
     environment:
       DB_HOST: db
     depends_on:
