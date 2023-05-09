@@ -55,7 +55,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_HOST: db
-      SECRET_KEY: ${SECRET_KEY}
+      POSTGRES_PORT: 5432
+#      SECRET_KEY: ${SECRET_KEY}
     command: >
       sh -c "python ./manage.py migrate"
 
