@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd task_planner
-            docker-compose pull
+#            docker-compose pull
             docker-compose up -d
       - name: remove old images
         if: always()
