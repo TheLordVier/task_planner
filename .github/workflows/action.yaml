@@ -51,6 +51,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd todolist
+            docker-compose down
             docker-compose up -d
       - name: remove old images
         if: always()
