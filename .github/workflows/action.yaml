@@ -52,6 +52,7 @@ jobs:
           script: |
             cd todolist
             docker-compose down
+            docker-compose pull
             docker-compose up -d
       - name: remove old images
         if: always()
