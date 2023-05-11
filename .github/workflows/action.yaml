@@ -22,10 +22,10 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     env:
-      SECRET_KEY: ${ secrets.SECRET_KEY }
-      DB_NAME: ${ secrets.DB_NAME }
-      DB_USER: ${ secrets.DB_USER }
-      DB_PASSWORD: ${ secrets.DB_PASSWORD }
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
