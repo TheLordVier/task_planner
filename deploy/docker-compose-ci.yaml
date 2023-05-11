@@ -35,6 +35,8 @@ services:
       - my-network
     image: thelordvier/task_planner:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
     restart: always
+    ports:
+      - "8000:8000"
 #    env_file:
 #      - .env
     environment:
