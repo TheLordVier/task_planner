@@ -59,7 +59,7 @@ ____
 
 ### Пример заполнения .env файла:
 
-- SECRET_KEY=your_secret_key 
+- SECRET_KEY=secret_key 
 - DEBUG=True 
 - DB_NAME=postgres
 - DB_PASSWORD=postgres
