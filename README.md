@@ -21,11 +21,15 @@ ____
 
 - **Директория todolist** - *Директория с основной django (backend) частью приложения*
 
+- **Директория deploy** - *Директория с файлами конфигурации для Docker Compose*
+
 **manage.py** - *файл со ссылкой на скрипт django-admin для проекта*
 
-**docker-compose.yaml** - *файл конфигурации для Docker Compose*
-
 **requirements.txt** - *зависимости приложения*
+
+**Dockerfile** - *файл для создания образов контейнеров*
+
+**.dockerignore** - *файлы и папки для игнорирования в Docker*
 
 **.gitignore** - *файлы и папки для игнорирования в системе контроля версий Git*
 ____
@@ -55,7 +59,7 @@ ____
 
 ### Пример заполнения .env файла:
 
-- SECRET_KEY=your_secret_key 
+- SECRET_KEY=secret_key 
 - DEBUG=True 
 - DB_NAME=postgres
 - DB_PASSWORD=postgres

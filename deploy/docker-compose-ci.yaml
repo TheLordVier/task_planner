@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+
+  db:
+    networks:
+      - my-network
+    image: postgres:15.1
+    restart: always
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    container_name: db
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  frontend:
+    networks:
+      - my-network
+    image: sermalenk/skypro-front:lesson-35
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+
+  api:
+    networks:
+      - my-network
+    image: thelordvier/task_planner:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+
+  migrations:
+    networks:
+      - my-network
+    image: thelordvier/task_planner:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+      DB_PORT: 5432
+    command: >
+      sh -c "python ./manage.py migrate"
+
+volumes:
+  pg_data:
+
+networks:
+  my-network:
