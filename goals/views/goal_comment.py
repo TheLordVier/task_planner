@@ -8,12 +8,12 @@ from goals.serializers import GoalCommentSerializer, CommentSerializer
 
 class GoalCommentCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = GoalCommentSerializer
+    serializer_class = CommentSerializer
 
 
 class GoalCommentListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = CommentSerializer
+    serializer_class = GoalCommentSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['goal']
     ordering = ['-created']
@@ -24,5 +24,5 @@ class GoalCommentListView(generics.ListAPIView):
 
 class GoalCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [GoalCommentPermission]
-    serializer_class = CommentSerializer
+    serializer_class = GoalCommentSerializer
     queryset = GoalComment.objects.select_related('user')
