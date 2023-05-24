@@ -42,10 +42,6 @@ services:
         condition: service_completed_successfully
     ports:
       - "8000:8000"
-#    volumes:
-#      - ./core:/opt/todolist/core
-#      - ./todolist:/opt/todolist/todolist
-#      - ./goals:/opt/todolist/goals
 
   migrations:
     build:
