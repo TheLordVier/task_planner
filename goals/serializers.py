@@ -26,7 +26,7 @@ class GoalSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
 
-    def validate_goal(self, value: GoalCategory) -> GoalCategory:
+    def validate_category(self, value: GoalCategory) -> GoalCategory:
         if value.is_deleted:
             raise ValidationError("Category not found")
         if self.context["request"].user.id != value.user_id:
@@ -46,7 +46,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ("id", "created", "updated", "user")
 
-    def validate_comment(self, value: Goal) -> Goal:
+    def validate_goal(self, value: Goal) -> Goal:
         if value.status == Goal.Status.archived:
             raise ValidationError("Goal not found")
         if self.context["request"].user.id != value.user_id:
