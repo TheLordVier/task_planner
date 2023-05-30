@@ -66,7 +66,6 @@ class BoardSerializer(BoardCreateSerializer):
 
 class GoalCreateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    # board = None
 
     def validate_board(self, board: Board) -> Board:
         if board.is_deleted:
