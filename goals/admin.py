@@ -15,19 +15,30 @@ class ParticipantsInLine(admin.TabularInline):
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'participants_count', 'is_deleted')
-    list_display_links = ['title']
+    list_display = ('id', 'title', 'participants_count', 'is_deleted', 'created', 'updated')
+    list_display_links = ['id', 'title']
     list_filter = ['is_deleted']
     search_fields = ['title']
+    readonly_fields = ("created", "updated")
     inlines = [ParticipantsInLine]
 
     def participants_count(self, obj: Board) -> int:
         return obj.participants.exclude(role=BoardParticipant.Role.owner).count()
 
 
+@admin.register(BoardParticipant)
+class BoardParticipantAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'board', 'created', 'updated')
+    list_display_links = ['id', 'user']
+    search_fields = ('user', 'board')
+    list_filter = ('user', 'board')
+    readonly_fields = ('created', 'updated')
+
+
 @admin.register(GoalCategory)
 class GoalCategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
+    list_display_links = ['id', 'title']
     list_filter = ['is_deleted']
     readonly_fields = ('created', 'updated')
     search_fields = ['title']
@@ -41,6 +52,7 @@ class CommentInLine(admin.StackedInline):
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'author_goal')
+    list_display_links = ['id', 'title']
     search_fields = ('title', 'description')
     readonly_fields = ('created', 'updated')
     list_filter = ('status', 'priority')
