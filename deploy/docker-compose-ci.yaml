@@ -63,6 +63,7 @@ services:
 
 volumes:
   pg_data:
+  django_static:
 
 networks:
   my-network:

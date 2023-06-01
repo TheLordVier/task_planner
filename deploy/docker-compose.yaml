@@ -57,3 +57,4 @@ services:
 
 volumes:
   pg_data:
+  django_static:
