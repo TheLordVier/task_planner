@@ -23,7 +23,7 @@ services:
   frontend:
     networks:
       - my-network
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       - api
@@ -44,6 +44,21 @@ services:
         condition: service_healthy
       migrations:
         condition: service_completed_successfully
+
+#  bot:
+#    networks:
+#      - my-network
+#    image: thelordvier/task_planner:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+#    restart: always
+#    env_file:
+#      - .env
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#      migrations:
+#        condition: service_completed_successfully
+#    command: >
+#      sh -c "python ./manage.py runbot"
 
   migrations:
     networks:

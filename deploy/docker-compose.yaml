@@ -21,7 +21,7 @@ services:
       retries: 10
 
   frontend:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       api:
@@ -42,6 +42,20 @@ services:
         condition: service_completed_successfully
     ports:
       - "8000:8000"
+
+  bot:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    command: >
+      sh -c "python ./manage.py runbot"
 
   migrations:
     build:
