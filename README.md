@@ -9,9 +9,13 @@ ____
 
 - **Python 3.11**
 - **Django 4.2**
+- **Django REST framework 3.14.0**
+- **Django-filter 23.2**
+- **Social-auth-app-django 5.2.0**
 - **Flake8**
+- **Nginx-alpine**
 - **Postgres SQL**
-- **Docker**
+- **Docker, Docker-compose**
 - **Telegram bot**
 
 ____
@@ -68,10 +72,13 @@ ____
 
 ### Пример заполнения .env файла:
 
-- SECRET_KEY=secret_key 
-- DEBUG=True 
-- DB_NAME=postgres
-- DB_PASSWORD=postgres
-- DB_USER=postgres
-- DB_HOST=localhost 
-- DB_PORT=5432
+    SECRET_KEY=your_secret_key 
+    DEBUG=True
+    DB_NAME=postgres
+    DB_PASSWORD=postgres
+    DB_USER=postgres
+    DB_HOST=localhost
+    DB_PORT=5432
+    SOCIAL_AUTH_VK_OAUTH2_KEY=YOUR_VK_APP_KEY
+    SOCIAL_AUTH_VK_OAUTH2_SECRET=YOUR_VK_SECRET_KEY
+    BOT_TOKEN=YOUR_SECRET_TELEGRAM_BOT_TOKEN
