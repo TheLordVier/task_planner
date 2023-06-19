@@ -8,12 +8,18 @@ User_Model = get_user_model()
 
 
 class RegistrationView(generics.CreateAPIView):
+    """
+    Представление для регистрации нового пользователя
+    """
     model = User_Model
     permission_classes = [permissions.AllowAny]
     serializer_class = RegistrationSerializer
 
 
 class LoginView(generics.CreateAPIView):
+    """
+    Представление для входа в систему существующего пользователя
+    """
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
@@ -25,6 +31,9 @@ class LoginView(generics.CreateAPIView):
 
 
 class ProfileView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Представление для получения профиля пользователя, обновления профиля и удаления
+    """
     serializer_class = UserSerializer
     queryset = User_Model.objects.all()
     permission_classes = [permissions.IsAuthenticated]
@@ -38,6 +47,9 @@ class ProfileView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(generics.UpdateAPIView):
+    """
+    Представление для обновления пароля пользователя
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UpdatePasswordSerializer
 

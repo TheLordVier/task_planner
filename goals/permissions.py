@@ -8,6 +8,10 @@ from goals.models import Board, BoardParticipant, GoalCategory, Goal, GoalCommen
 
 
 class BoardPermission(IsAuthenticated):
+    """
+    Класс BoardPermission служит для ограничения доступа к доске для пользователей,
+    кто отсутствует в списке участников
+    """
     def has_object_permission(self, request: Request, view: GenericAPIView, obj: Board) -> bool:
         _filters: dict[str, Any] = {"user": request.user, "board": obj}
         if request.method not in SAFE_METHODS:
@@ -17,6 +21,10 @@ class BoardPermission(IsAuthenticated):
 
 
 class GoalCategoryPermission(IsAuthenticated):
+    """
+    Класс GoalCategoryPermission служит для ограничения доступа к категории для
+    пользователей, которые не имеют роль редактор или владелец
+    """
     def has_object_permission(self, request: Request, view: GenericAPIView, obj: GoalCategory) -> bool:
         _filters: dict[str, Any] = {"user": request.user, "board": obj.board}
         if request.method not in SAFE_METHODS:
@@ -26,6 +34,10 @@ class GoalCategoryPermission(IsAuthenticated):
 
 
 class GoalPermission(IsAuthenticated):
+    """
+    Класс GoalPermission служит для ограничения доступа к цели для
+    пользователей, которые не имеют роль редактор или владелец
+    """
     def has_object_permission(self, request: Request, view: GenericAPIView, obj: Goal) -> bool:
         _filters: dict[str, Any] = {"user": request.user, "board": obj.category.board}
         if request.method not in SAFE_METHODS:
@@ -35,6 +47,10 @@ class GoalPermission(IsAuthenticated):
 
 
 class GoalCommentPermission(IsAuthenticated):
+    """
+    Класс GoalCommentPermission служит для ограничения доступа к комментариям,
+    для не авторизованных пользователей
+    """
     def has_object_permission(self, request: Request, view: GenericAPIView, obj: GoalComment) -> bool:
         if request.method in SAFE_METHODS:
             return True

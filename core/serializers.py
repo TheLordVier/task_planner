@@ -8,7 +8,9 @@ User_Model = get_user_model()
 
 
 class PasswordField(serializers.CharField):
-
+    """
+    Сериализатор проверки создания/изменения пароля
+    """
     def __init__(self, **kwargs):
         kwargs["style"] = {"input_type": "password"}
         kwargs.setdefault("write_only", True)
@@ -17,6 +19,9 @@ class PasswordField(serializers.CharField):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор регистрации
+    """
     password = PasswordField(required=True)
     password_repeat = PasswordField(required=True)
 
@@ -45,6 +50,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор авторизации
+    """
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
 
@@ -63,12 +71,18 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор отображения информации о пользователе
+    """
     class Meta:
         model = User_Model
         fields = ("id", "username", "first_name", "last_name", "email")
 
 
 class UpdatePasswordSerializer(serializers.Serializer):
+    """
+    Сериализатор обновления пароля
+    """
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     old_password = serializers.CharField(required=True, write_only=True)
     new_password = serializers.CharField(required=True, write_only=True)

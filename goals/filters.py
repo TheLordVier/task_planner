@@ -4,6 +4,9 @@ from goals.models import Goal
 
 
 class GoalListFilter(FilterSet):
+    """
+    Класс для фильтрации по дате дедлайна, категории, статусу и приоритету
+    """
     class Meta:
         model = Goal
         fields = {
