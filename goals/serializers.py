@@ -9,6 +9,9 @@ from goals.models import Board, BoardParticipant, GoalCategory, Goal, GoalCommen
 
 
 class BoardCreateSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор BoardCreateSerializer служит для создания новой доски
+    """
     class Meta:
         model = Board
         read_only_fields = ("id", "created", "updated")
@@ -16,6 +19,9 @@ class BoardCreateSerializer(serializers.ModelSerializer):
 
 
 class BoardParticipantSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор BoardParticipantSerializer служит для сериализации и десериализации участников доски
+    """
     role = serializers.ChoiceField(required=True, choices=BoardParticipant.editable_roles)
     user = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
 
@@ -31,6 +37,9 @@ class BoardParticipantSerializer(serializers.ModelSerializer):
 
 
 class BoardSerializer(BoardCreateSerializer):
+    """
+    Класс BoardSerializer служит для получения, обновления или удаления конкретной доски
+    """
     participants = BoardParticipantSerializer(many=True)
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -65,6 +74,9 @@ class BoardSerializer(BoardCreateSerializer):
 
 
 class GoalCreateSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор GoalCreateSerializer служит для создания новой цели
+    """
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     def validate_board(self, board: Board) -> Board:
@@ -87,10 +99,16 @@ class GoalCreateSerializer(serializers.ModelSerializer):
 
 
 class GoalCategorySerializer(GoalCreateSerializer):
+    """
+    Сериализатор GoalCategorySerializer служит для создания новой категории
+    """
     user = UserSerializer(read_only=True)
 
 
 class GoalSerializer(serializers.ModelSerializer):
+    """
+    Класс BoardSerializer служит для получения конкретной цели
+    """
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:

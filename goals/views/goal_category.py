@@ -7,11 +7,17 @@ from goals.serializers import GoalCreateSerializer, GoalCategorySerializer
 
 
 class GoalCategoryCreateView(generics.CreateAPIView):
+    """
+    Представление для создания новой категории
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCreateSerializer
 
 
 class GoalCategoryListView(generics.ListAPIView):
+    """
+    Представление для отображения списка всех доступных категорий
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategorySerializer
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
@@ -24,6 +30,9 @@ class GoalCategoryListView(generics.ListAPIView):
 
 
 class GoalCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Представление для отображения, обновления и удаления конкретной категории
+    """
     serializer_class = GoalCategorySerializer
     permission_classes = [GoalCategoryPermission]
     queryset = GoalCategory.objects.exclude(is_deleted=True)

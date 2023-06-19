@@ -8,11 +8,17 @@ from goals.serializers import GoalCommentSerializer, CommentSerializer
 
 
 class GoalCommentCreateView(generics.CreateAPIView):
+    """
+    Представление для создания нового комментария
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CommentSerializer
 
 
 class GoalCommentListView(generics.ListAPIView):
+    """
+    Представление для отображения списка комментариев
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -24,6 +30,9 @@ class GoalCommentListView(generics.ListAPIView):
 
 
 class GoalCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Представление для отображения, обновления и удаления конкретного комментария
+    """
     permission_classes = [GoalCommentPermission]
     serializer_class = GoalCommentSerializer
 
