@@ -99,15 +99,15 @@ class GoalSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created", "updated", "user")
 
     def validate_category(self, value: GoalCategory) -> GoalCategory:
-        if value.is_deleted:
-            raise ValidationError("Category not found")
-
         if not BoardParticipant.objects.filter(
                 board_id=value.board_id,
                 role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
                 user_id=self.context["request"].user
         ).exists():
-            raise PermissionDenied
+            raise PermissionDenied("Must be owner or writer in project")
+
+        if value.is_deleted:
+            raise ValidationError("Category not found")
 
         return value
 

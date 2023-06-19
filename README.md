@@ -17,6 +17,7 @@ ____
 - **Postgres SQL**
 - **Docker, Docker-compose**
 - **Telegram bot**
+- **Pytest, Factory-boy**
 
 ____
 
@@ -25,6 +26,8 @@ ____
 - **Директория bot** - *Директория c данными для работы Telegram бота*
 
 - **Директория core** - *Директория c кастомной моделью пользователя*
+
+- **Директория tests** - *Директория c тестами приложения*
 
 - **Директория todolist** - *Директория с основной django (backend) частью приложения*
 
@@ -72,7 +75,7 @@ ____
 
 ### Пример заполнения .env файла:
 
-    SECRET_KEY=your_secret_key 
+    SECRET_KEY=YOUR_SECRET_KEY
     DEBUG=True
     DB_NAME=postgres
     DB_PASSWORD=postgres
