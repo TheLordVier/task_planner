@@ -1,5 +1,4 @@
 import pytest
-import datetime
 from rest_framework.test import APIClient
 
 pytest_plugins = 'tests.factories'
