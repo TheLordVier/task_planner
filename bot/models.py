@@ -6,6 +6,9 @@ USER = get_user_model()
 
 
 class TgUser(models.Model):
+    """
+    Модель TgUser c необходимыми атрибутами
+    """
     chat_id = models.BigIntegerField(verbose_name="Telegram чат", primary_key=True, editable=True, unique=True)
     user = models.OneToOneField(USER, verbose_name="Пользователь", on_delete=models.CASCADE,
                                 null=True, blank=True

@@ -10,6 +10,9 @@ from bot.tg.client import TgClient
 
 
 class VerificationCodeView(generics.GenericAPIView):
+    """
+    Представление для верификации пользователя Telegram
+    """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = TgUserSerializer
 

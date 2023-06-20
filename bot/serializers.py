@@ -5,6 +5,9 @@ from bot.models import TgUser
 
 
 class TgUserSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор TgUserSerializer служит для сериализации и десериализации модели TgUser
+    """
     tg_id = serializers.IntegerField(source="chat_id", read_only=True)
     username = serializers.CharField(source="user.username", read_only=True)
     user_id = serializers.IntegerField(source="user.id", read_only=True)
