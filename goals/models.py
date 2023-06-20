@@ -5,6 +5,9 @@ from todolist.models import BaseModel
 
 
 class Board(BaseModel):
+    """
+    Модель для работы с досками (Board)
+    """
     title = models.CharField(verbose_name="Название", max_length=260)
     is_deleted = models.BooleanField(verbose_name="Удалена", default=False)
 
@@ -17,6 +20,9 @@ class Board(BaseModel):
 
 
 class BoardParticipant(BaseModel):
+    """
+    Модель позволяющая выбирать и назначать права пользователям
+    """
     class Role(models.IntegerChoices):
         owner = 1, "Владелец"
         writer = 2, "Редактор"
@@ -47,6 +53,9 @@ class BoardParticipant(BaseModel):
 
 
 class GoalCategory(BaseModel):
+    """
+    Модель для работы с категориями (Category)
+    """
     title = models.CharField(verbose_name="Название", max_length=260)
     user = models.ForeignKey(User, verbose_name="Автор", on_delete=models.PROTECT)
     is_deleted = models.BooleanField(verbose_name="Удалена", default=False)
@@ -61,6 +70,9 @@ class GoalCategory(BaseModel):
 
 
 class Goal(BaseModel):
+    """
+    Модель для работы с целями (Goal)
+    """
     class Status(models.IntegerChoices):
         to_do = 1, "К выполнению"
         in_progress = 2, "В процессе"
@@ -94,6 +106,9 @@ class Goal(BaseModel):
 
 
 class GoalComment(BaseModel):
+    """
+    Модель для работы с комментариями (Comment)
+    """
     text = models.TextField()
     user = models.ForeignKey(to=User, on_delete=models.PROTECT)
     goal = models.ForeignKey(to=Goal, on_delete=models.CASCADE)

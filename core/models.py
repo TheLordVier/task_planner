@@ -2,6 +2,9 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+    Модель User унаследованная от AbstractUser
+    """
     pass
 
     class Meta:

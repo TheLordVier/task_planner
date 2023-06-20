@@ -15,6 +15,9 @@ class ParticipantsInLine(admin.TabularInline):
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
+    """
+    Класс с кастомной настройкой админ-панели доски (Board)
+    """
     list_display = ('id', 'title', 'participants_count', 'is_deleted', 'created', 'updated')
     list_display_links = ['id', 'title']
     list_filter = ['is_deleted']
@@ -28,6 +31,9 @@ class BoardAdmin(admin.ModelAdmin):
 
 @admin.register(BoardParticipant)
 class BoardParticipantAdmin(admin.ModelAdmin):
+    """
+    Класс с кастомной настройкой админ-панели участников (Participants)
+    """
     list_display = ('id', 'user', 'board', 'created', 'updated')
     list_display_links = ['id', 'user']
     search_fields = ('user', 'board')
@@ -37,6 +43,9 @@ class BoardParticipantAdmin(admin.ModelAdmin):
 
 @admin.register(GoalCategory)
 class GoalCategoryAdmin(admin.ModelAdmin):
+    """
+    Класс с кастомной настройкой админ-панели категорий (Category)
+    """
     list_display = ('id', 'title')
     list_display_links = ['id', 'title']
     list_filter = ['is_deleted']
@@ -51,6 +60,9 @@ class CommentInLine(admin.StackedInline):
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
+    """
+    Класс с кастомной настройкой админ-панели целей (Goal)
+    """
     list_display = ('id', 'title', 'author_goal')
     list_display_links = ['id', 'title']
     search_fields = ('title', 'description')
