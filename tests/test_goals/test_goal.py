@@ -1,4 +1,5 @@
 import pytest
+from typing import Any
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.fields import DateTimeField
@@ -119,5 +120,52 @@ class TestListGoalView:
         Тест, что не авторизованный пользователь не получает список целей
         """
         response = client.get(self.url)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.django_db
+class TestRetrieveGoalView:
+
+    @pytest.fixture(autouse=True)
+    def setup(self, board_participant_factory: Any, goal_category_factory: Any, user: Any, goal_factory: Any) -> None:
+        self.url = f"/goals/goal/{self._set_data(board_participant_factory, goal_category_factory, user, goal_factory).id}"
+
+    @staticmethod
+    def _set_data(board_participant_factory: Any, goal_category_factory: Any, user: Any, goal_factory: Any) -> Goal:
+        board_participant = board_participant_factory.create(role=BoardParticipant.Role.owner, user=user)
+        goal_category = goal_category_factory.create(board=board_participant.board, user=user)
+        goal = goal_factory.create(category=goal_category, user=user)
+        return goal
+
+    def test_authorization_required(self, client: APIClient) -> None:
+        """
+        Тест, что неавторизованный пользователь, не получает доступ к цели
+        """
+        response = client.get(self.url)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    def test_auth(self, auth_client: APIClient) -> None:
+        """
+        Тест, который проверяет авторизован ли пользователь
+        """
+        response = auth_client.get(self.url)
+
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_deleted_owner_category(self, auth_client: APIClient) -> None:
+        """
+        Тест, который проверяет, что авторизованный пользователь (владелец) может удалить категорию
+        """
+        response = auth_client.delete(self.url)
+
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+    def test_deleted_not_owner_category(self, client: APIClient) -> None:
+        """
+        Тест, который проверяет что не владелец категории не может удалить её
+        """
+        response = client.delete(self.url)
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
