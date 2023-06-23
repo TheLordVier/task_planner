@@ -57,6 +57,15 @@ class TestCreateGoalCategoryView:
         new_category = GoalCategory.objects.get()
         assert response.json() == _serialize_response_category(new_category)
 
+    def test_create_category_with_role_reader(self, client, board, another_user):
+        BoardParticipant.objects.create(board=board, user=another_user, role=BoardParticipant.Role.reader)
+        client.force_login(another_user)
+        data = CreateGoalCategoryRequest(board=board.id)
+
+        response = client.post(self.url, data=data)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
     def test_create_category_with_role_owner(self, client, board, another_user):
         """
         Тест, что новая категория создается, когда пользователь является владельцем
