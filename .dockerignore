@@ -1,4 +1,6 @@
 __pycache__
+.pytest_cache
+.git
 *.pyo
 *.pyd
 .Python
@@ -12,8 +14,6 @@ nosetests.xml
 coverage.xml
 *.cover
 *.log
-.git
 .mypy_cache
-.pytest_cache
 .hypothesis
 README.md
