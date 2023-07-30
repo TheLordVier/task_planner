@@ -1,11 +1,11 @@
-# Планировщик задач (Task Planner)
-## Приложение для планирования задач и целей.
+# Task Planner
+## Application for planning tasks and goals.
 
-Проект разработал: Михайлов Александр
+Project developed by: Mikhailov Alexander
 
 ____
 
-### Cтек технологий используемых в приложении:
+### Stack of technologies used in the application:
 
 - **Python 3.11**
 - **Django 4.2**
@@ -21,59 +21,60 @@ ____
 
 ____
 
-### Структура приложения:
+### Application structure:
 
-- **Директория bot** - *Директория c данными для работы Telegram бота*
+- **Directory bot** - *Directory with data for Telegram bot operation*
 
-- **Директория core** - *Директория c кастомной моделью пользователя*
+- **Directory core** - *Directory with custom user model*
 
-- **Директория tests** - *Директория c тестами приложения*
+- **Directory tests** - *Application test directory*
 
-- **Директория todolist** - *Директория с основной django (backend) частью приложения*
+- **Directory todolist** - *The directory with the main django (backend) part of the application*
 
-- **Директория deploy** - *Директория с файлами конфигурации для Docker Compose*
+- **Directory deploy** - *Directory with configuration files for Docker Compose*
 
-- **Директория goals** - *Директория c досками, категориями, целями и комментариями*
+- **Directory goals** - *Directory with boards, categories, goals and comments*
 
-**manage.py** - *файл со ссылкой на скрипт django-admin для проекта*
+**manage.py** - *file with a link to the django-admin script for the project*
 
-**requirements.txt** - *зависимости приложения*
+**requirements.txt** - *application dependencies*
 
-**Dockerfile** - *файл для создания образов контейнеров*
+**Dockerfile** - *container image file*
 
-**entrypoint.sh** - *исполняемый файл для Dockerfile*
+**entrypoint.sh** - *executable for Dockerfile*
 
-**.dockerignore** - *файлы и папки для игнорирования в Docker*
+**.dockerignore** - *files and folders to ignore in Docker*
 
-**.gitignore** - *файлы и папки для игнорирования в системе контроля версий Git*
+**.gitignore** - *files and folders to ignore in the Git version control system*
 
-**swagger.json** - *swagger подключённый к проекту*
+**swagger.json** - *swagger connected to the project*
 ____
 
-### Подготовка и запуск приложения:
+### Preparing and launching the application:
 
-1. **Клонируем приложение.**
- - в терминале вводим команду `git clone https://github.com/TheLordVier/task_planner.git`
-2. **Создаём виртуальное окружение.**
- - в терминале вводим команду в директории проекта `python -m venv venv`
-3. **Устанавливаем зависимости приложения**
+1. **Clone the application**
+ - in the terminal, type the command `git clone https://github.com/TheLordVier/task_planner.git`
+2. **Create a virtual environment**
+ - in the terminal, enter the command in the project directory `python -m venv venv`
+3. **Install application dependencies**
  - в терминале вводим команду `pip install -r requirements.txt` 
-4. **Создаём .env файл (пример .env файла представлен ниже)**
- - создаём в корне проекта .env файл и прописываем в нём значения используемых переменных
-5. **Файл docker-compose.yaml**
- - создаём и заполняем файл docker-compose.yaml или берём готовый из проекта
- - в терминале вводим команду `docker-compose up -d` 
-6. **Выполняем миграции**
- - в терминале вводим команду `./manage.py makemigrations`
- - далее вводим команду `./manage.py migrate`
- - проверяем выполненные миграции с помощью команды `./manage.py showmigrations`
-7. **Запускаем приложение**
- - в терминале вводим команду в корне проекта `./manage.py runserver`
- - переходим по пути http://127.0.0.1:8000/ или заходим в панель администратора http://127.0.0.1:8000/admin/
+4. **Create an .env file (an example .env file is shown below)**
+ - create an .env file in the root of the project and write in it the values of the variables used
+5. **File docker-compose.yaml**
+ - create and fill in the file docker-compose.yaml or take a ready-made one from the project
+ - in the terminal, type the command `docker-compose up -d` 
+6. **Performing migrations**
+ - in the terminal, type the command `./manage.py makemigrations`
+ - then enter the command `./manage.py migrate`
+ - check the performed migrations with the command `./manage.py showmigrations`
+7. **Launch the application**
+ - in the terminal, enter the command in the project root `./manage.py runserver`
+ - go to http://127.0.0.1:8000/ or log in to the admin panel http://127.0.0.1:8000/admin/
+8. **You can also use the application located in the Yandex Cloud at http://51.250.70.227/auth.**
 
 ____
 
-### Пример заполнения .env файла:
+### An example of filling out an .env file:
 
     SECRET_KEY=YOUR_SECRET_KEY
     DEBUG=True
