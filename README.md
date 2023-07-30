@@ -67,10 +67,11 @@ ____
  - in the terminal, type the command `./manage.py makemigrations`
  - then enter the command `./manage.py migrate`
  - check the performed migrations with the command `./manage.py showmigrations`
-7. **Launch the application**
+7. **Running the application locally**
  - in the terminal, enter the command in the project root `./manage.py runserver`
  - go to http://127.0.0.1:8000/ or log in to the admin panel http://127.0.0.1:8000/admin/
-8. **You can also use the application located in the Yandex Cloud at http://51.250.70.227/auth.**
+8. **Running the application on a remote server**
+ - to use the application hosted in the Yandex Cloud, go to http://51.250.70.227/auth
 
 ____
 
