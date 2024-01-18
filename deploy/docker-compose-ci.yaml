@@ -38,7 +38,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env-ci
+      - .env
     depends_on:
       db:
         condition: service_healthy
@@ -51,7 +51,7 @@ services:
     image: thelordvier/task_planner:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
     restart: always
     env_file:
-      - .env-ci
+      - .env
     depends_on:
       db:
         condition: service_healthy
